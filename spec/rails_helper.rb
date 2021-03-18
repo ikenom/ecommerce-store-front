@@ -58,4 +58,18 @@ RSpec.configure do |config|
 
   # https://github.com/mongoid/mongoid-rspec
   config.include Mongoid::Matchers, type: :model
+
+  # Hate this? Me too. But Rails has a bug that overrides ApplicationJob.queue_adapter
+  # for each example.
+  # https://github.com/rails/rails/issues/37270
+  config.before(:each) do |example|
+    if example.metadata[:async_jobs]
+      ApplicationJob.disable_test_adapter
+      ApplicationJob.queue_adapter = :async
+    else
+      adapter = ActiveJob::QueueAdapters::TestAdapter.new
+      ActiveJob::Base.queue_adapter = adapter
+      ApplicationJob.queue_adapter = adapter
+    end
+  end
 end

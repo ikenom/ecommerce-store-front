@@ -1,5 +1,5 @@
 apiVersion: v2
-name: user-service
+name: ecommerce-store-front
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -15,18 +15,19 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.0.1
+version: 0.0.24
 
 dependencies:
   - name: mongodb
     version: ~10.3.6
     repository: https://charts.bitnami.com/bitnami
-    condition: mongodb.enabled
     tags:
-      - mongodb
+      - ecommerce-store-front-dev
   - name: rabbitmq
     version: ~8.6.3
     repository: https://charts.bitnami.com/bitnami
-    condition: rabbitmq.enabled
     tags:
-      - rabbitmq
+      - ecommerce-store-front-dev
+  - name: user-service
+    version: ~0.0.1
+    repository: https://ikenom.github.io/user-service

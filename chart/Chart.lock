@@ -5,5 +5,8 @@ dependencies:
 - name: rabbitmq
   repository: https://charts.bitnami.com/bitnami
   version: 8.6.4
-digest: sha256:cfc8843ecdfedb0c78a0ca9a474860b250590c79c8412ef71f06ea666b5279ae
-generated: "2021-01-19T22:15:56.294952-05:00"
+- name: user-service
+  repository: https://ikenom.github.io/user-service
+  version: 0.0.57
+digest: sha256:91bfd679a9ad63ed004b1209c8933b7d230cd2fc3d9de488a60a11d324cdb427
+generated: "2021-03-14T23:55:23.304544-04:00"

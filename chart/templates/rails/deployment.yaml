@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "user-service.fullname" . }}-sneakers
+  name: {{ include "ecommerce-store-front.fullname" . }}-rails
   labels:
-    {{- include "user-service.labels" . | nindent 4 }}
+    {{- include "ecommerce-store-front.labels" . | nindent 4 }}-rails
 spec:
-{{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+{{- if not .Values.rails.autoscaling.enabled }}
+  replicas: {{ .Values.rails.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "user-service.selectorLabels" . | nindent 6 }}
+      {{- include "ecommerce-store-front.selectorLabels" . | nindent 6 }}-rails
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,17 +18,17 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "user-service.selectorLabels" . | nindent 8 }}
+        {{- include "ecommerce-store-front.selectorLabels" . | nindent 8 }}-rails
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "user-service.serviceAccountName" . }}
+      serviceAccountName: {{ include "ecommerce-store-front.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-sneakers
+        - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -37,14 +37,19 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
-          command: ["bin/rake"]
-          args:
-            - "sneakers:run"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
             - configMapRef:
-                name: {{ .Chart.Name }}-configmap
+                name: {{ include "ecommerce-store-front.fullname" . }}-configmap
+          {{ if .Values.railsMasterKey }}
+          env:
+          - name: RAILS_MASTER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: rails-master-key
+                key: rails_master_key
+          {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

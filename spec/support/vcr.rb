@@ -17,7 +17,7 @@ VCR.configure do |config|
   config.default_cassette_options = {
     match_requests_on: [:method,
                         VCR.request_matchers.uri_without_param(:key)],
-    record: :none
+    record: :new_episodes
   }
 
   config.filter_sensitive_data("<redacted-request>") do |interaction|

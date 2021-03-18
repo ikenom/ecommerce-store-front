@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://35.193.167.21/graphql
+    body:
+      encoding: UTF-8
+      string: '{"query":"mutation AuthService__CreateUserQuery($email: String!, $password:
+        String!, $displayName: String!) {\n  createUser(input: {email: $email, password:
+        $password, displayName: $displayName}) {\n    token\n    user {\n      id\n    }\n  }\n}","variables":{"email":"regenia.berge@veum-kertzmann.co","password":"jysbxhxzdcmkybfbrlbatsdfyyymgapi","displayName":"Billy
+        Oberbrunner"},"operationName":"AuthService__CreateUserQuery"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+      Authorization:
+      - "<redacted-request>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"ca3bf9b76808fb42c8d5dd4d66702ea1"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - bf97d6ff-858e-46f4-95d5-83fdc179050b
+      X-Runtime:
+      - '0.253854'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"data":{"createUser":{"token":"eyJhbGciOiJIUzUxMiJ9.eyJyZWZyZXNoX3Rva2VuIjoiQU92dUt2UVdXZ3d3LXBEeG5nZ3hhazFTZ18tQTlCVF9yeTVSQURxZHBHNkl5VzY2NmFRT3R3MDdSS1doVDRoSV9Kb2Q2TUZCRW9VWVBEOExoS0lydjhHS0IxQTJLcTdwMzZlOURqMkp4SEUzVjFyVVQ5NFg1amp0aXVwTHlKYk44V0xjelNhR2NMM1B5TlZUTTBDaEt3clVENWNRUnEwNE1Ea0pHZER4V0pWNmR5cmRqNFdSMkFmYXFSSlluRXhlSm1OMG5rVjkxVjVXMEJtSWhkVzRGRl9tamFBclBBNF9tTXRnSnN3M19sV3dwNkwwX3N4UnR4cyJ9.srG42P698DVS7OztVc5g6gJp6QQbrwb2kboTZxo08KsKzo8FHg7NFqx-SVG45XU4hGGX2N22au97Oa2r5TGw5w","user":{"id":"6052dca2a07512000199927f"}}}}'
+  recorded_at: Thu, 18 Mar 2021 04:52:51 GMT
+recorded_with: VCR 6.0.0
