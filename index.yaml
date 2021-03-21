@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   ecommerce-store-front:
   - apiVersion: v2
+    appVersion: 7f8e6f46caaad69dea49d9c24d531ebfa9219b67
+    created: "2021-03-21T20:24:45.462971084Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - ecommerce-store-front-dev
+      version: ~10.3.6
+    - name: rabbitmq
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - ecommerce-store-front-dev
+      version: ~8.6.3
+    - name: user-service
+      repository: https://ikenom.github.io/user-service
+      version: ~0.0.1
+    description: A Helm chart for Kubernetes
+    digest: 3b0769b53bcff8c43fcb765ce6d3bf57db85f4f3ffa398b40d365a0b6c322e6d
+    name: ecommerce-store-front
+    type: application
+    urls:
+    - https://github.com/ikenom/ecommerce-store-front/releases/download/ecommerce-store-front-0.0.3/ecommerce-store-front-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
     appVersion: 1977508617eae4a01321188db1e0b83a6432757a
     created: "2021-03-18T22:40:53.17931635Z"
     dependencies:
