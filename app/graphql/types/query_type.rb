@@ -8,8 +8,11 @@ module Types
     end
 
     def orders(**attributes)
-      return Order.all if attributes[:fullfilment_status].nil?
-      Order.where(fullfilment_status: attributes[:fullfilment_status])
+      raise Errors::Unauthorized if context[:current_user].nil?
+
+      order = Order.where(user: context[:current_user])
+      order.where(fullfilment_status: attributes[:fullfilment_status]) unless attributes[:fullfilment_status].nil?
+      order
     end
   end
 end

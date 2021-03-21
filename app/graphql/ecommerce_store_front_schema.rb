@@ -9,6 +9,8 @@ class EcommerceStoreFrontSchema < GraphQL::Schema
       Types::UserType
     when DraftOrder
       Types::DraftOrderType
+    when Product
+      Types::ProductType
     else
       raise(GraphQL::RequiredImplementationMissingError)
     end

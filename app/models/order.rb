@@ -1,7 +1,6 @@
 class Order
   # .delegate is broken in mongoid 7.1.0. To get around error, the delgate definition has to be
   # placed before including Mongoid::Document. See https://jira.mongodb.org/browse/MONGOID-4849
-  delegate :user, to: :draft_order
   delegate :line_items, to: :draft_order
 
   include Mongoid::Document
@@ -15,6 +14,7 @@ class Order
   field :fullfilment_status, type: String
 
   belongs_to :draft_order
+  belongs_to :user
   embeds_one :total_price, class_name: Money
 
   after_create :publish_create
@@ -23,7 +23,8 @@ class Order
     def from_shopify(shopify_order, draft_order)
       attributes = Order.attributes_from_shopify(shopify_order)
       attributes.merge!({
-        draft_order: draft_order
+        draft_order: draft_order,
+        user: draft_order.user
       })
 
       Order.create!(**attributes)

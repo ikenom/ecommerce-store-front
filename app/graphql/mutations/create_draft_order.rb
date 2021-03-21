@@ -20,9 +20,7 @@ module Mutations
 
     def create_line_items(draft_order, line_items)
       line_items.each do |line_item|
-        _, item_id = GraphQL::Schema::UniqueWithinType.decode(line_item.product_id)
-        product = Product.find(item_id)
-        LineItem.create!(quantity: line_item.quantity, product: product, draft_order: draft_order)
+        LineItem.create!(quantity: line_item.quantity, product: line_item.product, draft_order: draft_order)
       end
     end
   end
