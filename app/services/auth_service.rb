@@ -57,6 +57,9 @@
       mutation($email: String!, $password: String!) {
         login(input: {email: $email, password: $password}) {
           token
+          user {
+            id
+          }
         }
       }
     GRAPHQL
