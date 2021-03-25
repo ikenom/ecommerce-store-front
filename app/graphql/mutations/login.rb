@@ -12,7 +12,7 @@ module Mutations
 
       {
         token: login.token,
-        user: login.user
+        user: User.find_by(auth_id: login.user.id)
       }
     end
   end
