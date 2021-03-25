@@ -20,11 +20,11 @@ class EcommerceStoreFrontSchema < GraphQL::Schema
 
   # Return a string UUID for `object`
   def self.id_from_object(object, type_definition, query_ctx)
-    GraphQL::Schema::UniqueWithinType.encode(type_definition.graphql_name, object.id)
+    model = Object.const_get(type_definition.graphql_name).find(id: object.id)
+    model.to_global_id
   end
 
   def self.object_from_id(id, query_ctx)
-    type_name, item_id = GraphQL::Schema::UniqueWithinType.decode(id)
-    Object.const_get(type_name).find_by(id: item_id)
+    GlobalID::Locator.locate id
   end
 end
