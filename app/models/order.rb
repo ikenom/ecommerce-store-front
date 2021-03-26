@@ -51,7 +51,8 @@ class Order
 
   def publish_create
     PublishJob.perform_later("core.order.created", {
-      id: self.to_global_id.to_s
+      id: self.to_global_id.to_s,
+      user_id: user.to_global_id.to_s
     })
   end
 end
