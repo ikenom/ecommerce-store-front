@@ -28,7 +28,10 @@ class Order
         user: draft_order.user
       })
 
-      Order.create!(**attributes)
+      order = Order.create!(**attributes)
+      Fulfillment.create!(order: order, type: "KITCHEN")
+
+      order
     end
 
     def attributes_from_shopify(shopify_order)
