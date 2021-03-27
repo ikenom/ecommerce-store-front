@@ -4,15 +4,21 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     field :orders, Types::OrderType.connection_type, null: false do
-      argument :fullfilment_status, Types::FullfilmentStatus, required: false
+      argument :fulfillment_type, Types::FulfillmentTypeType, required: false
+      argument :fulfillment_request_status, Types::FulfillmentRequestStatus, required: false
     end
 
     def orders(**attributes)
       raise Errors::Unauthorized if context[:current_user].nil?
 
-      order = Order.where(user: context[:current_user])
-      order.where(fullfilment_status: attributes[:fullfilment_status]) unless attributes[:fullfilment_status].nil?
-      order
+      orders = Order.where(user: context[:current_user])
+      orders = if attributes[:fulfillment_type].present?
+        fulfillments = Fulfillment.where(type: attributes[:fulfillment_type], request_status: attributes[:fulfillment_request_status])
+        fulfillments.map(&:order)
+      end
+
+      orders = orders.reject { |order| order.user.id != context[:current_user].id}
+      orders
     end
   end
 end

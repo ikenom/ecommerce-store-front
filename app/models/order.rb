@@ -16,6 +16,7 @@ class Order
   belongs_to :draft_order
   belongs_to :user
   embeds_one :total_price, class_name: Money
+  has_many :fulfillments
 
   after_create :publish_create
 

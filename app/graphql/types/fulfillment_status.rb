@@ -1,3 +1,3 @@
-class Types::FullfilmentStatus < Types::BaseEnum
+class Types::FulfillmentStatus < Types::BaseEnum
   value "OPEN", "The fulfillment order has been opened."
 end
