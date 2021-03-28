@@ -8,5 +8,7 @@ module Types
     field :checkout, mutation: Mutations::Checkout
     field :complete_fulfillment, mutation: Mutations::CompleteFulfillment
     field :start_fulfillment, mutation: Mutations::StartFulfillment
+    field :pause_fulfillment, mutation: Mutations::PauseFulfillment
+    field :cancel_fulfillment, mutation: Mutations::CancelFulfillment
   end
 end

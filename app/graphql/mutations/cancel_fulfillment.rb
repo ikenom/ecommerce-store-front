@@ -1,11 +1,11 @@
 module Mutations
-  class PauseOrder < BaseMutation
+  class CancelFulfillment < BaseMutation
     argument :fulfillment_id, ID, required: true, loads: Types::FulfillmentType
 
     field :fulfillment, Types::FulfillmentType, null: false
 
     def resolve(fulfillment:)
-      fulfillment.update!(request_status: "PAUSE")
+      fulfillment.update!(request_status: "CANCELLATION_REQUESTED")
 
       {
         fulfillment: fulfillment
