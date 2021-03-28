@@ -6,5 +6,7 @@ module Types
     field :create_product, mutation: Mutations::CreateProduct
     field :login, mutation: Mutations::Login
     field :checkout, mutation: Mutations::Checkout
+    field :complete_fulfillment, mutation: Mutations::CompleteFulfillment
+    field :start_fulfillment, mutation: Mutations::StartFulfillment
   end
 end

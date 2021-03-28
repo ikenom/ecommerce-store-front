@@ -11,6 +11,8 @@ class EcommerceStoreFrontSchema < GraphQL::Schema
       Types::DraftOrderType
     when Product
       Types::ProductType
+    when Fulfillment
+      Types::FulfillmentType
     else
       raise(GraphQL::RequiredImplementationMissingError)
     end
