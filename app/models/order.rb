@@ -30,6 +30,7 @@ class Order
 
       order = Order.new(**attributes)
       Fulfillment.create!(order: order, type: "KITCHEN")
+      Fulfillment.create!(order: order, type: "PICKUP")
 
       order.save!
       order
@@ -58,10 +59,13 @@ class Order
 
   def publish_create
     kitchen_fulfillment = fulfillments.find_by(type: "KITCHEN")
+    pickup_fulfillment = fulfillments.find_by(type: "PICKUP")
+
     PublishJob.perform_later("core.order.created", {
       id: self.to_global_id.to_s,
       user_id: user.to_global_id.to_s,
-      kitchen_fulfillment_id: kitchen_fulfillment.to_global_id.to_s
+      kitchen_fulfillment_id: kitchen_fulfillment.to_global_id.to_s,
+      pickup_fulfillment_id: pickup_fulfillment.to_global_id.to_s
     })
   end
 end
