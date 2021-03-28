@@ -18,6 +18,8 @@ class Order
   embeds_one :total_price, class_name: Money
   has_many :fulfillments
 
+  after_create :publish_create
+
   class << self
     def from_shopify(shopify_order, draft_order)
       attributes = Order.attributes_from_shopify(shopify_order)
@@ -49,5 +51,14 @@ class Order
   def update_from_shopify(shopify_order)
     attributes = Order.attributes_from_shopify(shopify_order)
     Order.update!(**attributes)
+  end
+
+  def publish_create
+    kitchen_fulfillment = fulfillments.find_by(type: "KITCHEN")
+    PublishJob.perform_later("core.order.created", {
+      id: self.to_global_id.to_s,
+      user_id: user.to_global_id.to_s,
+      kitchen_fulfillment_id: kitchen_fulfillment.to_global_id.to_s
+    })
   end
 end
