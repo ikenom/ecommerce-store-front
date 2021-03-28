@@ -14,7 +14,8 @@ class Fulfillment
 
   def publish_update
     PublishJob.perform_later("core.fulfillment.updated", {
-      id: self.to_global_id.to_s
+      id: self.to_global_id.to_s,
+      order_id: order.to_global_id.to_s
     })
   end
 end

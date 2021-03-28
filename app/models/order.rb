@@ -28,9 +28,10 @@ class Order
         user: draft_order.user
       })
 
-      order = Order.create!(**attributes)
+      order = Order.new(**attributes)
       Fulfillment.create!(order: order, type: "KITCHEN")
 
+      order.save!
       order
     end
 
