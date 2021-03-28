@@ -7,7 +7,6 @@ class Fulfillment
 
   belongs_to :order
 
-  after_create :publish_create
   after_update :publish_update
 
   private

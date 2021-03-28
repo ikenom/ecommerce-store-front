@@ -54,6 +54,8 @@ class Order
     Order.update!(**attributes)
   end
 
+  private
+
   def publish_create
     kitchen_fulfillment = fulfillments.find_by(type: "KITCHEN")
     PublishJob.perform_later("core.order.created", {
