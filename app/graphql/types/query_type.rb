@@ -12,9 +12,9 @@ module Types
       raise Errors::Unauthorized if context[:current_user].nil?
 
       orders = Order.where(user: context[:current_user])
-      orders = if attributes[:fulfillment_type].present?
+      if attributes[:fulfillment_type].present?
         fulfillments = Fulfillment.where(type: attributes[:fulfillment_type], request_status: attributes[:fulfillment_request_status])
-        fulfillments.map(&:order)
+        orders = fulfillments.map(&:order)
       end
 
       orders = orders.reject { |order| order.user.id != context[:current_user].id}

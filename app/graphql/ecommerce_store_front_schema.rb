@@ -9,6 +9,8 @@ class EcommerceStoreFrontSchema < GraphQL::Schema
       Types::UserType
     when DraftOrder
       Types::DraftOrderType
+    when Order
+      Types::OrderType
     when Product
       Types::ProductType
     when Fulfillment
